@@ -1,2 +1,4 @@
-package org.example.board;public class LiveScoreBoardTest {
+package org.example.board;
+
+public class LiveScoreBoardTest {
 }
