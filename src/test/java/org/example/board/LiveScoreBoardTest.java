@@ -13,7 +13,6 @@ public class LiveScoreBoardTest {
     private static final Team ENGLAND = new Team("England");
     private static final Team SPAIN = new Team("Spain");
     private static final Team FRANCE = new Team("France");
-    private static final Team PORTUGAL = new Team("Portugal");
 
     @Test
     public void testStart() {
@@ -44,8 +43,9 @@ public class LiveScoreBoardTest {
     @Test
     public void testStart_startGameWithGoalsScored() {
 
-        POLAND.setScore(1);
-        Game game_A = new Game(POLAND, GERMANY);
+        Team portugal = new Team("Portugal", 1);
+
+        Game game_A = new Game(POLAND, portugal);
 
         assertThrows(IllegalArgumentException.class, () -> board.start(game_A));
     }
