@@ -15,7 +15,7 @@ public class LiveScoreBoardTest {
     private static final Team ENGLAND = new Team("England");
     private static final Team SPAIN = new Team("Spain");
     private static final Team FRANCE = new Team("France");
-    private static final Team ITALY = new Team("Italy");
+    private static final Team PORTUGAL = new Team("Portugal");
 
 
     @Test
@@ -81,7 +81,7 @@ public class LiveScoreBoardTest {
         Team italy = new Team("Italy", 0);
         Game game_A = new Game(POLAND, GERMANY);
         Game game_B = new Game(ENGLAND, italy);
-        Game game_C = new Game(FRANCE, ITALY);
+        Game game_C = new Game(FRANCE, PORTUGAL);
 
         board.start(game_A);
         board.start(game_B);
@@ -94,4 +94,37 @@ public class LiveScoreBoardTest {
         assertThrows(NoSuchElementException.class, () -> board.finish(game_C));
         assertEquals(1, board.getScoreBoard().size());
     }
+
+    @Test
+    public void testUpdate() {
+
+        Team croatia = new Team("Croatia");
+        Game game_A = new Game(croatia, GERMANY);
+
+        board.start(game_A);
+
+        assertEquals(1, board.getScoreBoard().size());
+
+        game_A.getHomeTeam().setScore(1);
+
+        board.update(game_A);
+
+        assertEquals(1, board.getScoreBoard().size());
+        assertTrue(board.getScoreBoard().contains(game_A));
+        assertEquals(1, board.getScoreBoard().getFirst().getHomeTeam().getScore());
+        assertEquals(0, board.getScoreBoard().getFirst().getAwayTeam().getScore());
+    }
+
+    @Test
+    public void testUpdate_updateNotExistingGame() {
+
+        Game game_A = new Game(POLAND, GERMANY);
+        Game game_B = new Game(FRANCE, PORTUGAL);
+
+        board.start(game_A);
+
+        assertEquals(1, board.getScoreBoard().size());
+        assertThrows(NoSuchElementException.class, () -> board.update(game_B));
+    }
+
 }
