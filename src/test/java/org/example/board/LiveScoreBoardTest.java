@@ -1,5 +1,6 @@
 package org.example.board;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
@@ -10,12 +11,27 @@ public class LiveScoreBoardTest {
 
     private LiveScoreBoard board = new LiveScoreBoard();
 
-    private static final Team POLAND = new Team("Poland");
-    private static final Team GERMANY = new Team("Germany");
-    private static final Team ENGLAND = new Team("England");
-    private static final Team SPAIN = new Team("Spain");
-    private static final Team FRANCE = new Team("France");
-    private static final Team PORTUGAL = new Team("Portugal");
+    private Team POLAND;
+    private Team GERMANY;
+    private Team ENGLAND;
+    private Team SPAIN;
+    private Team FRANCE;
+    private Team PORTUGAL;
+    private Team ITALY;
+    private Team CROATIA;
+
+
+    @BeforeEach
+    public void init() {
+        POLAND = new Team("Poland");
+        GERMANY = new Team("Germany");
+        ENGLAND = new Team("England");
+        SPAIN = new Team("Spain");
+        FRANCE = new Team("France");
+        PORTUGAL = new Team("Portugal");
+        ITALY = new Team("Italy");
+        CROATIA = new Team("Croatia");
+    }
 
 
     @Test
@@ -47,9 +63,8 @@ public class LiveScoreBoardTest {
     @Test
     public void testStart_startGameWithGoalsScored() {
 
-        Team portugal = new Team("Portugal", 1);
-
-        Game game_A = new Game(POLAND, portugal);
+        PORTUGAL.setScore(1);
+        Game game_A = new Game(POLAND, PORTUGAL);
 
         assertThrows(IllegalArgumentException.class, () -> board.start(game_A));
     }
@@ -57,8 +72,7 @@ public class LiveScoreBoardTest {
     @Test
     public void testFinish() {
 
-        Team portugal = new Team("Portugal", 0);
-        Game game_A = new Game(portugal, FRANCE);
+        Game game_A = new Game(PORTUGAL, FRANCE);
         Game game_B = new Game(ENGLAND, SPAIN);
         Game game_C = new Game(POLAND, GERMANY);
 
@@ -78,9 +92,8 @@ public class LiveScoreBoardTest {
     @Test
     public void testFinish_finishNotExistingGame() {
 
-        Team italy = new Team("Italy", 0);
         Game game_A = new Game(POLAND, GERMANY);
-        Game game_B = new Game(ENGLAND, italy);
+        Game game_B = new Game(ENGLAND, ITALY);
         Game game_C = new Game(FRANCE, PORTUGAL);
 
         board.start(game_A);
@@ -98,8 +111,7 @@ public class LiveScoreBoardTest {
     @Test
     public void testUpdate() {
 
-        Team croatia = new Team("Croatia");
-        Game game_A = new Game(croatia, GERMANY);
+        Game game_A = new Game(CROATIA, GERMANY);
 
         board.start(game_A);
 
