@@ -10,6 +10,9 @@ public class Team {
     }
 
     public Team(String name, int score) {
+        if(score < 0) {
+            throw new IllegalArgumentException("Score cannot be lower than zero");
+        }
         this.name = name;
         this.score = score;
     }
@@ -23,6 +26,9 @@ public class Team {
     }
 
     public void setScore(int score) {
+        if(score < 0) {
+            throw new IllegalArgumentException("Score cannot be lower than zero");
+        }
         this.score = score;
     }
 
