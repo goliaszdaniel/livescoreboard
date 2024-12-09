@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LiveScoreBoardTest {
 
-    private LiveScoreBoard board = new LiveScoreBoard();
+    private final LiveScoreBoard board = new LiveScoreBoard();
 
     private Team POLAND;
     private Team GERMANY;
@@ -47,7 +47,7 @@ public class LiveScoreBoardTest {
         board.start(game_A);
         board.start(game_B);
 
-        assertEquals(2, board.getScoreBoard().size());
+        assertEquals(2, board.getListOfGames().size());
     }
 
     @Test
@@ -84,13 +84,13 @@ public class LiveScoreBoardTest {
         board.start(game_B);
         board.start(game_C);
 
-        assertEquals(3, board.getScoreBoard().size());
+        assertEquals(3, board.getListOfGames().size());
 
         game_A.getHomeTeam().setScore(1);
         board.finish(game_A);
         board.finish(game_B);
 
-        assertEquals(1, board.getScoreBoard().size());
+        assertEquals(1, board.getListOfGames().size());
     }
 
     @Test
@@ -103,13 +103,13 @@ public class LiveScoreBoardTest {
         board.start(game_A);
         board.start(game_B);
 
-        assertEquals(2, board.getScoreBoard().size());
+        assertEquals(2, board.getListOfGames().size());
 
         game_B.getAwayTeam().setScore(1);
         board.finish(game_B);
 
         assertThrows(NoSuchElementException.class, () -> board.finish(game_C));
-        assertEquals(1, board.getScoreBoard().size());
+        assertEquals(1, board.getListOfGames().size());
     }
 
     @Test
@@ -119,16 +119,16 @@ public class LiveScoreBoardTest {
 
         board.start(game_A);
 
-        assertEquals(1, board.getScoreBoard().size());
+        assertEquals(1, board.getListOfGames().size());
 
         game_A.getHomeTeam().setScore(1);
 
         board.update(game_A);
 
-        assertEquals(1, board.getScoreBoard().size());
-        assertTrue(board.getScoreBoard().contains(game_A));
-        assertEquals(1, board.getScoreBoard().getFirst().getHomeTeam().getScore());
-        assertEquals(0, board.getScoreBoard().getFirst().getAwayTeam().getScore());
+        assertEquals(1, board.getListOfGames().size());
+        assertTrue(board.getListOfGames().contains(game_A));
+        assertEquals(1, board.getListOfGames().getFirst().getHomeTeam().getScore());
+        assertEquals(0, board.getListOfGames().getFirst().getAwayTeam().getScore());
     }
 
     @Test
@@ -139,7 +139,7 @@ public class LiveScoreBoardTest {
 
         board.start(game_A);
 
-        assertEquals(1, board.getScoreBoard().size());
+        assertEquals(1, board.getListOfGames().size());
         assertThrows(NoSuchElementException.class, () -> board.update(game_B));
     }
 
@@ -179,11 +179,12 @@ public class LiveScoreBoardTest {
         board.update(game_D);
         board.update(game_E);
 
-        String expectedSummary = "1. England 1 - Spain 5\n" +
-                "2. Brazil 5 - Argentina 0\n" +
-                "3. Croatia 3 - Italy 2\n" +
-                "4. Poland 2 - Germany 3\n" +
-                "5. Portugal 0 - France 1";
+        String expectedSummary = """
+                1. England 1 - Spain 5
+                2. Brazil 5 - Argentina 0
+                3. Croatia 3 - Italy 2
+                4. Poland 2 - Germany 3
+                5. Portugal 0 - France 1""";
 
         assertEquals(expectedSummary, board.getSummaryByTotalScore());
     }

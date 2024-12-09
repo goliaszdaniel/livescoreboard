@@ -16,7 +16,7 @@ public class LiveScoreBoard implements Board {
             throw new IllegalArgumentException("Starting score has to be 0-0");
         }
         for(Game existingGame : listOfGames) {
-            if(existingGame.containsAnyTeamAs(game)) {
+            if(existingGame.containsAnyTeamNameAs(game)) {
                 throw new IllegalArgumentException("Cannot start a game for the team that is already playing");
             }
         }
@@ -28,7 +28,7 @@ public class LiveScoreBoard implements Board {
     public void finish(Game game) {
 
         for(Game elem : listOfGames) {
-            if(elem.containsTheSameTeamsAs(game)) {
+            if(elem.containsTheSameTeamNamesAs(game)) {
                 listOfGames.remove(elem);
                 return;
             }
@@ -40,7 +40,7 @@ public class LiveScoreBoard implements Board {
     public void update(Game game) {
 
         for(Game elem : listOfGames) {
-            if(elem.containsTheSameTeamsAs(game)) {
+            if(elem.containsTheSameTeamNamesAs(game)) {
                 elem.getHomeTeam().setScore(game.getHomeTeam().getScore());
                 elem.getAwayTeam().setScore(game.getAwayTeam().getScore());
                 return;
@@ -66,7 +66,7 @@ public class LiveScoreBoard implements Board {
         return sb.toString().trim();
     }
 
-    List<Game> getScoreBoard() {
+    List<Game> getListOfGames() {
         return listOfGames;
     }
 }

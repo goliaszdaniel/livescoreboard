@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TeamTest {
 
     @Test
-    public void testTeam_createWithDefaultScore() {
+    public void testConstructor_defaultScore() {
         Team team_A = new Team("Poland");
 
         assertEquals("Poland", team_A.getName());
@@ -16,7 +16,7 @@ public class TeamTest {
     }
 
     @Test
-    public void testTeam_createWithPassingCorrectScore() {
+    public void testConstructor_passingCorrectScore() {
         Team team_A = new Team("Poland", 0);
         Team team_B = new Team("England", 3);
 
@@ -28,12 +28,12 @@ public class TeamTest {
     }
 
     @Test
-    public void testTeam_createWithPassingIncorrectScore() {
+    public void testConstructor_passingIncorrectScore() {
         assertThrows(IllegalArgumentException.class, () -> new Team("Poland", -1));
     }
 
     @Test
-    public void testTeam_setScore_correct() {
+    public void testSetScore() {
         Team team_A = new Team("Poland");
         Team team_B = new Team("England");
 
@@ -47,7 +47,7 @@ public class TeamTest {
     }
 
     @Test
-    public void testTeam_setScore_incorrect() {
+    public void testSetScore_incorrectScore() {
         Team team_A = new Team("Poland");
 
         assertThrows(IllegalArgumentException.class, () -> team_A.setScore(-1));

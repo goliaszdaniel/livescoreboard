@@ -29,14 +29,14 @@ public class Game {
         return startTime;
     }
 
-    boolean containsAnyTeamAs(Game game) {
+    boolean containsAnyTeamNameAs(Game game) {
         return this.homeTeam.getName().equals(game.getHomeTeam().getName())
                 || this.homeTeam.getName().equals(game.getAwayTeam().getName())
                 || this.awayTeam.getName().equals(game.getHomeTeam().getName())
                 || this.awayTeam.getName().equals(game.getAwayTeam().getName());
     }
 
-    boolean containsTheSameTeamsAs(Game game) {
+    boolean containsTheSameTeamNamesAs(Game game) {
         return this.homeTeam.getName().equals(game.getHomeTeam().getName())
                 && this.awayTeam.getName().equals(game.getAwayTeam().getName());
     }

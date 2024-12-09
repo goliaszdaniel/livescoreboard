@@ -38,11 +38,11 @@ public class GameTest {
         Game game_C = new Game(team_D, team_E);
         Game game_D = new Game(team_D, team_E);
 
-        assertFalse(game_A.containsAnyTeamAs(game_B));
+        assertFalse(game_A.containsAnyTeamNameAs(game_B));
 
-        assertTrue(game_B.containsAnyTeamAs(game_C));
-        assertTrue(game_C.containsAnyTeamAs(game_B));
-        assertTrue(game_C.containsAnyTeamAs(game_D));
+        assertTrue(game_B.containsAnyTeamNameAs(game_C));
+        assertTrue(game_C.containsAnyTeamNameAs(game_B));
+        assertTrue(game_C.containsAnyTeamNameAs(game_D));
     }
 
     @Test
@@ -58,11 +58,11 @@ public class GameTest {
         Game game_C = new Game(team_D, team_E);
         Game game_D = new Game(team_D, team_E);
 
-        assertFalse(game_A.containsTheSameTeamsAs(game_B));
-        assertFalse(game_B.containsTheSameTeamsAs(game_C));
-        assertFalse(game_C.containsTheSameTeamsAs(game_B));
+        assertFalse(game_A.containsTheSameTeamNamesAs(game_B));
+        assertFalse(game_B.containsTheSameTeamNamesAs(game_C));
+        assertFalse(game_C.containsTheSameTeamNamesAs(game_B));
 
-        assertTrue(game_C.containsTheSameTeamsAs(game_D));
+        assertTrue(game_C.containsTheSameTeamNamesAs(game_D));
     }
 
     @Test
