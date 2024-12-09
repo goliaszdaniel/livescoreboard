@@ -38,6 +38,14 @@ public class LiveScoreBoard implements Board {
     @Override
     public void update(Game game) {
 
+        for(Game elem : listOfGames) {
+            if(elem.containsTheSameTeamsAs(game)) {
+                elem.getHomeTeam().setScore(game.getHomeTeam().getScore());
+                elem.getAwayTeam().setScore(game.getAwayTeam().getScore());
+                return;
+            }
+        }
+        throw new NoSuchElementException("There is no such game on the board");
     }
 
     @Override
