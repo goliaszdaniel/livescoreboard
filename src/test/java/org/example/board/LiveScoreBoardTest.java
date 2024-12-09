@@ -19,6 +19,8 @@ public class LiveScoreBoardTest {
     private Team PORTUGAL;
     private Team ITALY;
     private Team CROATIA;
+    private Team BRAZIL;
+    private Team ARGENTINA;
 
 
     @BeforeEach
@@ -31,6 +33,8 @@ public class LiveScoreBoardTest {
         PORTUGAL = new Team("Portugal");
         ITALY = new Team("Italy");
         CROATIA = new Team("Croatia");
+        BRAZIL = new Team("Brazil");
+        ARGENTINA = new Team("Argentina");
     }
 
 
@@ -137,6 +141,51 @@ public class LiveScoreBoardTest {
 
         assertEquals(1, board.getScoreBoard().size());
         assertThrows(NoSuchElementException.class, () -> board.update(game_B));
+    }
+
+    @Test
+    public void testGetSummaryByTotalScore() throws InterruptedException {
+
+        Game game_A = new Game(POLAND, GERMANY);
+        Thread.sleep(10);
+        Game game_B = new Game(ENGLAND, SPAIN);
+        Thread.sleep(10);
+        Game game_C = new Game(CROATIA, ITALY);
+        Thread.sleep(10);
+        Game game_D = new Game(PORTUGAL, FRANCE);
+        Thread.sleep(10);
+        Game game_E = new Game(BRAZIL, ARGENTINA);
+
+        board.start(game_A);
+        board.start(game_B);
+        board.start(game_C);
+        board.start(game_D);
+        board.start(game_E);
+
+        game_A.getHomeTeam().setScore(2);
+        game_A.getAwayTeam().setScore(3);
+        game_B.getHomeTeam().setScore(1);
+        game_B.getAwayTeam().setScore(5);
+        game_C.getHomeTeam().setScore(3);
+        game_C.getAwayTeam().setScore(2);
+        game_D.getHomeTeam().setScore(0);
+        game_D.getAwayTeam().setScore(1);
+        game_E.getHomeTeam().setScore(5);
+        game_E.getAwayTeam().setScore(0);
+
+        board.update(game_A);
+        board.update(game_B);
+        board.update(game_C);
+        board.update(game_D);
+        board.update(game_E);
+
+        String expectedSummary = "1. England 1 - Spain 5\n" +
+                "2. Brazil 5 - Argentina 0\n" +
+                "3. Croatia 3 - Italy 2\n" +
+                "4. Poland 2 - Germany 3\n" +
+                "5. Portugal 0 - France 1";
+
+        assertEquals(expectedSummary, board.getSummaryByTotalScore());
     }
 
 }
