@@ -1,9 +1,12 @@
 package org.example.board;
 
+import java.time.LocalDateTime;
+
 public class Game {
 
     private Team homeTeam;
     private Team awayTeam;
+    private LocalDateTime startTime;
 
     public Game(Team homeTeam, Team awayTeam) {
 
@@ -12,6 +15,7 @@ public class Game {
         }
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.startTime = LocalDateTime.now();
     }
 
     public Team getHomeTeam() {
@@ -20,6 +24,10 @@ public class Game {
 
     public Team getAwayTeam() {
         return awayTeam;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
     public boolean containsAnyTeamAs(Game game) {
