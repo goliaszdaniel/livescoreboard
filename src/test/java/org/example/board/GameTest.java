@@ -78,4 +78,19 @@ public class GameTest {
 
         assertEquals(5, game_A.getTotalNumberOfGoals());
     }
+
+    @Test
+    public void testGetStartTime() {
+        Team team_A = new Team("Poland");
+        Team team_B = new Team("England");
+
+        Game game = new Game(team_A, team_B);
+
+        assertThrows(RuntimeException.class, game::getStartTime);
+
+        game.initStartTime();
+
+        assertNotNull(game.getStartTime());
+
+    }
 }

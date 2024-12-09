@@ -40,7 +40,6 @@ public class LiveScoreBoardTest {
 
     @Test
     public void testStart() {
-
         Game game_A = new Game(POLAND, GERMANY);
         Game game_B = new Game(ENGLAND, SPAIN);
 
@@ -52,7 +51,6 @@ public class LiveScoreBoardTest {
 
     @Test
     public void testStart_startGameForTeamsThatAreAlreadyPlaying() {
-
         Game game_A = new Game(POLAND, GERMANY);
         Game game_B = new Game(ENGLAND, SPAIN);
         Game game_C = new Game(ENGLAND, SPAIN);
@@ -66,7 +64,6 @@ public class LiveScoreBoardTest {
 
     @Test
     public void testStart_startGameWithGoalsScored() {
-
         PORTUGAL.setScore(1);
         Game game_A = new Game(POLAND, PORTUGAL);
 
@@ -75,7 +72,6 @@ public class LiveScoreBoardTest {
 
     @Test
     public void testFinish() {
-
         Game game_A = new Game(PORTUGAL, FRANCE);
         Game game_B = new Game(ENGLAND, SPAIN);
         Game game_C = new Game(POLAND, GERMANY);
@@ -86,7 +82,7 @@ public class LiveScoreBoardTest {
 
         assertEquals(3, board.getListOfGames().size());
 
-        game_A.getHomeTeam().setScore(1);
+        PORTUGAL.setScore(1);
         board.finish(game_A);
         board.finish(game_B);
 
@@ -95,7 +91,6 @@ public class LiveScoreBoardTest {
 
     @Test
     public void testFinish_finishNotExistingGame() {
-
         Game game_A = new Game(POLAND, GERMANY);
         Game game_B = new Game(ENGLAND, ITALY);
         Game game_C = new Game(FRANCE, PORTUGAL);
@@ -105,7 +100,7 @@ public class LiveScoreBoardTest {
 
         assertEquals(2, board.getListOfGames().size());
 
-        game_B.getAwayTeam().setScore(1);
+        ITALY.setScore(1);
         board.finish(game_B);
 
         assertThrows(NoSuchElementException.class, () -> board.finish(game_C));
@@ -114,15 +109,13 @@ public class LiveScoreBoardTest {
 
     @Test
     public void testUpdate() {
-
         Game game_A = new Game(CROATIA, GERMANY);
 
         board.start(game_A);
 
         assertEquals(1, board.getListOfGames().size());
 
-        game_A.getHomeTeam().setScore(1);
-
+        CROATIA.setScore(1);
         board.update(game_A);
 
         assertEquals(1, board.getListOfGames().size());
@@ -133,7 +126,6 @@ public class LiveScoreBoardTest {
 
     @Test
     public void testUpdate_updateNotExistingGame() {
-
         Game game_A = new Game(POLAND, GERMANY);
         Game game_B = new Game(FRANCE, PORTUGAL);
 
@@ -145,33 +137,32 @@ public class LiveScoreBoardTest {
 
     @Test
     public void testGetSummaryByTotalScore() throws InterruptedException {
-
         Game game_A = new Game(POLAND, GERMANY);
-        Thread.sleep(10);
         Game game_B = new Game(ENGLAND, SPAIN);
-        Thread.sleep(10);
         Game game_C = new Game(CROATIA, ITALY);
-        Thread.sleep(10);
         Game game_D = new Game(PORTUGAL, FRANCE);
-        Thread.sleep(10);
         Game game_E = new Game(BRAZIL, ARGENTINA);
 
         board.start(game_A);
+        Thread.sleep(10);
         board.start(game_B);
+        Thread.sleep(10);
         board.start(game_C);
+        Thread.sleep(10);
         board.start(game_D);
+        Thread.sleep(10);
         board.start(game_E);
 
-        game_A.getHomeTeam().setScore(2);
-        game_A.getAwayTeam().setScore(3);
-        game_B.getHomeTeam().setScore(1);
-        game_B.getAwayTeam().setScore(5);
-        game_C.getHomeTeam().setScore(3);
-        game_C.getAwayTeam().setScore(2);
-        game_D.getHomeTeam().setScore(0);
-        game_D.getAwayTeam().setScore(1);
-        game_E.getHomeTeam().setScore(5);
-        game_E.getAwayTeam().setScore(0);
+        POLAND.setScore(2);
+        GERMANY.setScore(3);
+        ENGLAND.setScore(1);
+        SPAIN.setScore(5);
+        CROATIA.setScore(3);
+        ITALY.setScore(2);
+        PORTUGAL.setScore(0);
+        FRANCE.setScore(1);
+        BRAZIL.setScore(5);
+        ARGENTINA.setScore(0);
 
         board.update(game_A);
         board.update(game_B);

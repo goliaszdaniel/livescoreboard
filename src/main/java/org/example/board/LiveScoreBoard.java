@@ -22,6 +22,7 @@ public class LiveScoreBoard implements Board {
         }
 
         listOfGames.add(game);
+        game.initStartTime();
     }
 
     @Override

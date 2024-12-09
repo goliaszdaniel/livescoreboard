@@ -6,7 +6,7 @@ public class Game {
 
     private final Team homeTeam;
     private final Team awayTeam;
-    private final LocalDateTime startTime;
+    private LocalDateTime startTime;
 
     public Game(Team homeTeam, Team awayTeam) {
         if(homeTeam.getName().equals(awayTeam.getName())) {
@@ -14,7 +14,6 @@ public class Game {
         }
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
-        this.startTime = LocalDateTime.now();
     }
 
     public Team getHomeTeam() {
@@ -26,7 +25,14 @@ public class Game {
     }
 
     public LocalDateTime getStartTime() {
+        if(startTime == null) {
+            throw new RuntimeException("Start time has not been initialized.");
+        }
         return startTime;
+    }
+
+    void initStartTime() {
+        startTime = LocalDateTime.now();
     }
 
     boolean containsAnyTeamNameAs(Game game) {

@@ -25,7 +25,7 @@ public class Team {
         return score;
     }
 
-    public void setScore(int score) {
+    void setScore(int score) {
         if(score < 0) {
             throw new IllegalArgumentException("Score cannot be lower than zero");
         }
