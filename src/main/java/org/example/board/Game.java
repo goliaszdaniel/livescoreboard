@@ -29,4 +29,9 @@ public class Game {
                 || this.awayTeam.getName().equals(game.getAwayTeam().getName());
     }
 
+    public boolean containsTheSameTeamsAs(Game game) {
+        return this.homeTeam.getName().equals(game.getHomeTeam().getName())
+                && this.awayTeam.getName().equals(game.getAwayTeam().getName());
+    }
+
 }

@@ -2,6 +2,7 @@ package org.example.board;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class LiveScoreBoard implements Board {
 
@@ -25,6 +26,13 @@ public class LiveScoreBoard implements Board {
     @Override
     public void finish(Game game) {
 
+        for(Game elem : listOfGames) {
+            if(elem.containsTheSameTeamsAs(game)) {
+                listOfGames.remove(elem);
+                return;
+            }
+        }
+        throw new NoSuchElementException("There is no such game on the board");
     }
 
     @Override
