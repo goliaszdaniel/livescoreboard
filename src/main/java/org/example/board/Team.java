@@ -2,7 +2,7 @@ package org.example.board;
 
 public class Team {
 
-    private String name;
+    private final String name;
     private int score;
 
     public Team(String name) {
@@ -26,4 +26,8 @@ public class Team {
         this.score = score;
     }
 
+    @Override
+    public String toString() {
+        return name + " " + score;
+    }
 }

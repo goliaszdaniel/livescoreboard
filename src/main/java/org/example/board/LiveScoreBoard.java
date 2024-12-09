@@ -1,12 +1,13 @@
 package org.example.board;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class LiveScoreBoard implements Board {
 
-    private List<Game> listOfGames = new ArrayList<>();
+    private final List<Game> listOfGames = new ArrayList<>();
 
     @Override
     public void start(Game game) {
@@ -50,10 +51,22 @@ public class LiveScoreBoard implements Board {
 
     @Override
     public String getSummaryByTotalScore() {
-        return null;
+
+        List<Game> copy = new ArrayList<>(listOfGames);
+
+        copy.sort(Comparator.comparing(Game::getStartTime).reversed());
+        copy.sort(Comparator.comparing(Game::getTotalNumberOfGoals).reversed());
+
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<copy.size(); i++) {
+            Team homeTeam = copy.get(i).getHomeTeam();
+            Team awayTeam = copy.get(i).getAwayTeam();
+            sb.append( String.format("%s. %s %s - %s %s\n", i+1, homeTeam.getName(), homeTeam.getScore(), awayTeam.getName(), awayTeam.getScore()));
+        }
+        return sb.toString().trim();
     }
 
-    public List<Game> getScoreBoard() {
+    List<Game> getScoreBoard() {
         return listOfGames;
     }
 }
