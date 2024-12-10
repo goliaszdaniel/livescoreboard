@@ -11,50 +11,44 @@ public class LiveScoreBoard implements Board {
 
     @Override
     public void start(Game game) {
-
         if(game.getHomeTeam().getScore() != 0 || game.getAwayTeam().getScore() != 0) {
-            throw new IllegalArgumentException("Starting score has to be 0-0");
+            throw new IllegalArgumentException("Starting score has to be 0-0.");
         }
         for(Game existingGame : listOfGames) {
             if(existingGame.containsAnyTeamNameAs(game)) {
-                throw new IllegalArgumentException("Cannot start a game for the team that is already playing");
+                throw new IllegalArgumentException("Cannot start a game for the team that is already playing.");
             }
         }
-
         listOfGames.add(game);
         game.initStartTime();
     }
 
     @Override
     public void finish(Game game) {
-
-        for(Game elem : listOfGames) {
-            if(elem.containsTheSameTeamNamesAs(game)) {
-                listOfGames.remove(elem);
+        for(Game existingGame : listOfGames) {
+            if(existingGame.containsTheSameTeamNamesAs(game)) {
+                listOfGames.remove(existingGame);
                 return;
             }
         }
-        throw new NoSuchElementException("There is no such game on the board");
+        throw new NoSuchElementException("There is no such game on the board.");
     }
 
     @Override
     public void update(Game game) {
-
-        for(Game elem : listOfGames) {
-            if(elem.containsTheSameTeamNamesAs(game)) {
-                elem.getHomeTeam().setScore(game.getHomeTeam().getScore());
-                elem.getAwayTeam().setScore(game.getAwayTeam().getScore());
+        for(Game existingGame : listOfGames) {
+            if(existingGame.containsTheSameTeamNamesAs(game)) {
+                existingGame.getHomeTeam().setScore(game.getHomeTeam().getScore());
+                existingGame.getAwayTeam().setScore(game.getAwayTeam().getScore());
                 return;
             }
         }
-        throw new NoSuchElementException("There is no such game on the board");
+        throw new NoSuchElementException("There is no such game on the board.");
     }
 
     @Override
     public String getSummaryByTotalScore() {
-
         List<Game> copy = new ArrayList<>(listOfGames);
-
         copy.sort(Comparator.comparing(Game::getStartTime).reversed());
         copy.sort(Comparator.comparing(Game::getTotalNumberOfGoals).reversed());
 

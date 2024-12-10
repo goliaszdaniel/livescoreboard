@@ -31,6 +31,10 @@ public class Game {
         return startTime;
     }
 
+    void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
     void initStartTime() {
         startTime = LocalDateTime.now();
     }
@@ -55,5 +59,4 @@ public class Game {
     public String toString() {
         return homeTeam.toString() + " - " + awayTeam.toString();
     }
-
 }
